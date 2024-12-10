@@ -1,0 +1,7 @@
+<div style="height: 40px">
+  <button type="button" (click)="addTab()">新增Tab</button>
+  @for (item of datasource; track item.id) {
+    <span>{{ item.title }}</span>
+  }
+</div>
+<z-ngx-tabs [datasource]="datasource" style="height: calc(100% - 40px);display: block"></z-ngx-tabs>

@@ -1,0 +1,15 @@
+<div class="container">
+  <ul class="tabs">
+    @for (tab of datasource; track tab.id) {
+      <li class="tab" (click)="clickTab($event,tab.id)" [class.active]="tab.active" (contextmenu)="rightPanel($event)" [attr.data-id]="tab.id">
+        <div class="tab-title">{{tab.title}}</div>
+        @if (tab.canClose){
+          <div class="tab-close-btn"><svg class="icon" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"  width="200" height="200"><path d="M196.48 149.376L874.624 827.52l-47.104 47.104L149.376 196.48z"></path><path d="M149.376 827.52L827.52 149.44l47.168 47.104L196.544 874.688z" ></path></svg></div>
+        }
+      </li>
+    }
+  </ul>
+  <div class="content">
+    <router-outlet></router-outlet>
+  </div>
+</div>

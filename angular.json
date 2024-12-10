@@ -3,5 +3,159 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
+    "z-ngx-tabs": {
+      "projectType": "library",
+      "root": "projects/z-ngx-tabs",
+      "sourceRoot": "projects/z-ngx-tabs/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/z-ngx-tabs/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/z-ngx-tabs/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/z-ngx-tabs/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "tsConfig": "projects/z-ngx-tabs/tsconfig.spec.json",
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ]
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/z-ngx-tabs/**/*.ts",
+              "projects/z-ngx-tabs/**/*.html"
+            ],
+            "eslintConfig": "projects/z-ngx-tabs/eslint.config.js"
+          }
+        }
+      }
+    },
+    "lib-test": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "projects/lib-test",
+      "sourceRoot": "projects/lib-test/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:application",
+          "options": {
+            "outputPath": "dist/lib-test",
+            "index": "projects/lib-test/src/index.html",
+            "browser": "projects/lib-test/src/main.ts",
+            "polyfills": [
+              "zone.js"
+            ],
+            "tsConfig": "projects/lib-test/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "projects/lib-test/public"
+              }
+            ],
+            "styles": [
+              "projects/lib-test/src/styles.scss"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kB",
+                  "maximumError": "1MB"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "4kB",
+                  "maximumError": "8kB"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "buildTarget": "lib-test:build:production"
+            },
+            "development": {
+              "buildTarget": "lib-test:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ],
+            "tsConfig": "projects/lib-test/tsconfig.spec.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "projects/lib-test/public"
+              }
+            ],
+            "styles": [
+              "projects/lib-test/src/styles.scss"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/lib-test/**/*.ts",
+              "projects/lib-test/**/*.html"
+            ],
+            "eslintConfig": "projects/lib-test/eslint.config.js"
+          }
+        }
+      }
+    }
+  },
+  "cli": {
+    "analytics": "3db11096-19aa-443c-9e61-90d1f76a274f",
+    "schematicCollections": [
+      "angular-eslint"
+    ]
   }
 }
