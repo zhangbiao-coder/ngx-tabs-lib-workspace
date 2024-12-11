@@ -4,4 +4,4 @@
     <span>{{ item.title }}</span>
   }
 </div>
-<z-ngx-tabs [datasource]="datasource" style="height: calc(100% - 40px);display: block"></z-ngx-tabs>
+<z-ngx-tabs [datasource]="datasource" style="height: calc(100% - 40px);display: block" (activeTab)="activeTab($event)" (closeTab)="closeTab($event)" ></z-ngx-tabs>

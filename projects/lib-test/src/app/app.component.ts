@@ -1,9 +1,11 @@
 import {Component} from '@angular/core';
-import {ITabType, ZNgxTabsComponent} from 'z-ngx-tabs';
+import {ITabType, TabsComponent} from 'z-ngx-tabs';
 
 @Component({
   selector: 'app-root',
-  imports: [ZNgxTabsComponent],
+  imports: [
+    TabsComponent
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
@@ -24,5 +26,17 @@ export class AppComponent {
       canClose: true,
       path: "/tabs/tab" + i
     });
+  }
+
+  protected readonly console = console;
+  protected readonly close = close;
+
+  activeTab(id: string) {
+    console.log(id)
+  }
+
+  closeTab(ids: string[]) {
+    console.log(ids)
+
   }
 }
