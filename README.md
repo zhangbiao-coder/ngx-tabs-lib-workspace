@@ -5,6 +5,7 @@ This project was generated using [Angular CLI](https://github.com/angular/angula
 这个项目支持的最低angular版本是19.0.1
 
 一款简单好用的Tab组件.
+
 ![img.png](img.png)
 
 #### **z-ngx-tabs的亮点：**
