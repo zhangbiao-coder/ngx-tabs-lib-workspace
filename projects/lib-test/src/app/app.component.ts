@@ -28,9 +28,6 @@ export class AppComponent {
     });
   }
 
-  protected readonly console = console;
-  protected readonly close = close;
-
   activeTab(id: string) {
     console.log(id)
   }
