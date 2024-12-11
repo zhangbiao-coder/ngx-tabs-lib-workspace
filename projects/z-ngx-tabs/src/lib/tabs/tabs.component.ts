@@ -71,7 +71,7 @@ export class TabsComponent implements OnInit, AfterViewInit, OnDestroy {
         let xu = "";
         let xHandlerValue: any;
         let yyu: Array<string> = [];
-        SimpleReuseStrategy.handlers.forEach((value, key) => {
+        SimpleReuseStrategy.handlers.forEach((value) => {
           if (!value[1].endsWith(id) && value[1].includes(id)) {
             if (!yyu.includes(value[1])) {
               xu = value[1];
