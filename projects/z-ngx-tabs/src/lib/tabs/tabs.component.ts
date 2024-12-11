@@ -1,4 +1,13 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  Input,
+  OnDestroy,
+  OnInit,
+  ViewChild
+} from '@angular/core';
 import {ActivatedRoute, Router, RouterOutlet} from '@angular/router';
 import {SimpleReuseStrategy} from '../service/route-reuse-strategy';
 import {ITabType} from '../option/tab-type';
@@ -11,11 +20,11 @@ import {ITabType} from '../option/tab-type';
   templateUrl: './tabs.component.html',
   styleUrl: './tabs.component.scss'
 })
-export class TabsComponent implements OnInit {
+export class TabsComponent implements OnInit , AfterViewInit, OnDestroy  {
   //菜单数据
   @Input() datasource: ITabType[] = [];
 
-  constructor(private activatedRoute: ActivatedRoute, private router: Router) {
+  constructor(private activatedRoute: ActivatedRoute, private router: Router,private cdr:ChangeDetectorRef) {
   }
 
   ngOnInit(): void {
@@ -176,6 +185,50 @@ export class TabsComponent implements OnInit {
     }
   }
 
+  //监听tabs的左右滚动按钮
+  @ViewChild('tabsWrapper') tabsWrapper: ElementRef  | undefined;
+  @ViewChild('tabsList') tabsList: ElementRef | undefined;
+  showScrollButtons = false;  // 控制是否显示滚动按钮
+
+  private resizeObserver: ResizeObserver | undefined;
+  ngAfterViewInit() {
+    // 使用 ResizeObserver 来监听容器的宽度变化
+    this.resizeObserver = new ResizeObserver(() => {
+      this.checkIfScrollNeeded();
+    });
+
+    // 开始监听容器宽度变化
+    this.resizeObserver.observe(this.tabsList?.nativeElement);
+
+    // 初始检查
+    this.checkIfScrollNeeded();
+  }
+
+  ngOnDestroy() {
+    // 销毁观察器
+    if (this.resizeObserver) {
+      this.resizeObserver.disconnect();
+    }
+  }
+
+  // 判断是否需要滚动按钮
+  private checkIfScrollNeeded() {
+    const wrapper = this.tabsWrapper?.nativeElement;
+    const list = this.tabsList?.nativeElement;
+    // 当选项卡总宽度超出容器宽度时，显示滚动按钮
+    this.showScrollButtons = list.clientWidth > wrapper.clientWidth;
+    this.cdr.detectChanges();
+  }
+
+  scrollLeft() {
+    const tabs = this.tabsWrapper?.nativeElement;
+    tabs.scrollLeft -= 100;  // 每次滚动100px
+  }
+
+  scrollRight() {
+    const tabs = this.tabsWrapper?.nativeElement;
+    tabs.scrollLeft += 100;  // 每次滚动100px
+  }
 }
 
 
