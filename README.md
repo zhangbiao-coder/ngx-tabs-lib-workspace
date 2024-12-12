@@ -78,7 +78,7 @@ export const appConfig: ApplicationConfig = {
 ```javascript
 export interface Option {
 export interface ITabType {
-      id: string,  //必须，id请尽量使用UUID,因为要在url中寻找这个id，来判断唯一性
+      id: string,  //必须，id请尽量使用UUID,因为要在url中寻找这个id，来判断唯一性,禁止使用1，2，3，a,b,c这类简单id
       title: string, //必须，tab的标题
       path: string,  //必须，tab页面的路由地址
       canClose?: boolean, //可选，默认：false,tab是否能关闭
@@ -88,9 +88,12 @@ export interface ITabType {
 }
 ```
 ## 版本
-**现在最新版是0.0.2**
+**现在最新版是0.0.3**
 
-- **0.0.2** `最新`
+- **0.0.3** `最新`
+  完善文档
+
+- **0.0.2** `历史`
   完善组件，完善文档
 
 - **0.0.1** `过期`
